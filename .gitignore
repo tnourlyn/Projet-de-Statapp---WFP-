@@ -1,0 +1,5 @@
+data/*
+!data/era5_z.csv
+*.nc
+*.grib
+*.idx
