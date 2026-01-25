@@ -1,9 +1,7 @@
 import pandas as pd
 
-# 1) Charger le CSV
 df = pd.read_csv("data/era5_z.csv")
 
-# 2) Aperçu
 print(df.head())
 print("Shape:", df.shape)
 print("Colonnes:", df.columns.tolist())
@@ -13,6 +11,8 @@ df_ng = df[
     df["latitude"].between(4.2, 14.7) &
     df["longitude"].between(2.7, 14.7)
 ]
+
+df_ng["z1000_m"] = df_ng["z"] / 9.80665
 
 df_ng["valid_time"] = pd.to_datetime(df["valid_time"])
 
