@@ -1,0 +1,102 @@
+Unnamed: 1,Unnamed: 13
+,
+,
+,
+,
+,
+,
+,
+,
+,
+"IFPRI’s Food Security Simulator Nigeria (FSS-NGA) allows users to assess the potential short-term impacts of user-selected food price shocks or household income shocks on food security and dietary quality in a partial equilibrium framework. The Tool is contained in this workbook.
+
+The FSS-NGA takes user-specified changes to food-group prices and/or household incomes (entered as positive or negative percentage changes) and outputs detailed statistics on their potential impact on household food consumption and dietary quality.",
+,
+,
+,
+,
+,
+,
+"Using the tool: The tool is easy to use. Enter the specific price and/or income shocks in the input sheets of this workbook. The workbook then runs the simulation and automatically provides the results and outputs.
+
+Outputs: A variety of detailed summary statistics by household income quintile and residential area (urban/rural) are provided by the output sheets of this workbook. These are described in more detail below.
+
+The accompanying FSS-NGA Results Overview workbook provides summary tables and graphs of key indicators.
+ 
+Data: The simulation uses household survey data from the Nigeria Living Standards Survey 2018-2019 (NLSS 2018/19). A stratified, representative random sample of 1,000 households was drawn from the full sample of over 20,000 households to be used in the simulations. The random sample is designed to be representative at the rural, urban, and quintile levels. The NLSS 2018/19 was not explicitly stratified at the rural/urban level, but at the state level. However, the survey design allows for representative rural and urban estimates at the national level - as we have done (NBS, 2020a).
+
+The input and output sheets are described in more detail below, as well as the methods underlying the simulation implementation.",
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+"Sheet Descriptions
+
+General
+
+All sheets (tabs) in this workbook and the FSS-NGA Results Overview workbook are color coded by function.
+
+Red sheets are input sheets. Users select food price and household income shocks for simulation using these sheets.
+
+Green sheets are output sheets. These display the summary statistics and changes from baseline produced by the user-specified shocks.",
+"User Input – Change in Food Prices
+
+Allows the user to specify a set of one-time food price shocks. The user can specify a price change (in terms of percentage increase or decrease) for any or all of 29 separate food items, at varying degrees of aggregation, for rural and/or urban areas.
+
+There are no set criteria for designing these shocks. However, it is recommended that food price shocks not exceed −50% or +50% to ensure the simulation model functions correctly.
+
+Note that (1) simulations are agnostic as to the source of the shock; and (2) this tool does not incorporate changes to the prices of nonfood items or nonfood expenditures, so all specified food price changes should be understood as relative to that of nonfood.",
+"User Input – Change in Household Income
+
+Allows the user to specify a one-time household income shock (in the form of a percentage change in income) for poor and/or non-poor households by rural and/or urban areas. Poor and non-poor households are defined by the food expenditure poverty line created for the NLSS 2018/19 survey and total household food expenditure (per capita) reported in the survey
+
+As with the food price shocks, there are no set criteria for designing the income shocks. However, it is recommended that income shocks not exceed −20% or +20% to ensure the simulation model functions correctly. ",
+"Output – Food Consumption
+
+Presents the simulation results for general household food expenditures and consumption for the specified shocks. Results include: food poverty rates, incidence of undernourishment, and total household food expenditure and consumption.
+
+Outputs are presented for the baseline scenario, total effect of the simulated change, and the percentage change from the baseline; and for the disaggregated impacts of the income effect, own-price effect, and total price effects that together form the total simulated effect.",
+"Output – Diet Quality
+
+Presents the simulation results for household dietary quality for the specified shocks. Most of the results on this sheet are in relation to a “reference diet” (described in more detail in the methods section). These include:
+• index indicator of dietary quality, with values closer to 1 indicating a higher quality household diet (described in more detail in the methods section below)
+• average number of food groups households are adequately consuming, based on the reference diet guidelines
+• percentage of households reporting sufficient caloric intake despite being deprived in at least one food group - described as the share of deprived households with sufficient calorie consumption
+
+Food-specific statistics summarize the percentage of households deprived of a certain food group; the average calorie deficit; and food groups’ contribution to the indicator of diet quality. Statistics on household food-group consumption are disaggregated by general EAT-Lancet reference diet groupings. As with the output for general food consumption and expenditure, all results are presented for the baseline, total effect, and change from baseline, along with details on the disaggregated effects.",
+,
+"Methods
+
+Data preparation
+
+The data for the simulation, drawn from the NLSS 2018/19 as described above, were cleaned in two separate steps to account for two different types of outliers. First, households that reported a per adult equivalent per day calorie consumption of less than 800 kcal or more than 8,000 kcal were removed. This step aimed to remove implausible household consumption. Second, for each food group, consumption and expenditure amounts were tabulated, and households that reported implausibly large expenditures or quantities were also removed from the sample.",
+"Microsimulation parameter inputs
+
+The income and price elasticities used in the model were calculated using a Quadratic Almost Ideal Demand System (QUAIDS) model, by rural and urban sectors and incorporating 15 food groups. A two-stage estimation approach, adapted from Ecker and Comstock (2021), was used to obtain unconditional income and price elasticities of food consumption. The elasticities for these 15 food groups were then mapped to the 29 food groups/items used in the microsimulation.",
+"Microsimulations 
+
+The core simulations used in the FSS-NGA are a partial equilibrium model adapted from Pauw et al. (2023). In brief, equations take the demand parameters estimated from the QUAIDS model and the user-specified shocks, and apply these to the consumption data from the selected sample of NLSS 2018/19 households. The application of the elasticities and shocks is not done directly onto reported consumption but rather a long-term, latent value created as part of the QUAIDS model. See Pauw et al. (2023) for the detailed simulation equations.",
+"Diet quality indicator
+
+The diet quality indicator is an adapted version of the multidimensional Reference Diet Deprivation (ReDD) Index established in Pauw et al. (2023). The ReDD index measures the incidence, breadth, and depth of diet deprivation across multiple essential food groups, using a standardized reference diet. The diet quality indicator is derived from the ReDD score by subtracting the ReDD score from one (1 − ReDD), so that higher index numbers reflect higher quality diets.",
+"Reference diet
+
+The reference diet used in the FSS-NGA is the EAT-Lancet healthy reference diet taken from 
+Willet, et al. (2019). The EAT-Lancet diet is designed to meet the nutritional requirements of most people and 
+reduce the incidence of noncommunicable diseases and overall mortality, all while considering 
+potential environmental sustainability concerns.",
+,
+References,
+"Ecker, O., and A.R. Comstock. 2021. Income and Price Elasticities of Food Demand (E-FooD) Dataset: Documentation of Estimation Methodology. Washington, DC: International Food Policy Research Institute. ",link
+"Ecker, O., and M. Qaim. 2011. “Analyzing Nutritional Impacts of Policies: An Empirical Study for Malawi.” World Development 39 (3): 412–428.",link
+"FAO, WHO, and UNU. 2001. “Human Energy Requirements.” In Report of a Joint FAO/WHO/UNU Expert Consultation. Rome: United Nations.",link
+"National Bureau of Statistics, Nigeria (NBS). 2020a. Nigeria Living Standards Survey 2018-2019. Abuja, Nigeria: National Bureau of Statistics.",link
+"National Bureau of Statistics, Nigeria (NBS). 2020b. “2019 Poverty and Inequality in Nigeria: Executive Summary.” May, NBS, Abuja, Nigeria.",
+"Pauw, K., O. Ecker, J. Thurlow, and A.R. Comstock. 2023. “Measuring Changes in Diet Deprivation: New Indicators and Methods.” Food Policy 117 (102471).",link
+"Willett, W., J. Rockström, B. Loken, et al. 2019. “Food in the Anthropocene: The EAT–Lancet Commission on Healthy Diets from Sustainable Food Systems.” Lancet 393 (10170): 447–492.",link

@@ -1,0 +1,37 @@
+Unnamed: 1,Unnamed: 3,Unnamed: 4,Unnamed: 7,Unnamed: 17,Unnamed: 18
+User specified price shocks - by food item group and rural and urban areas.,,,,,
+Price shocks should not exceed either +50% or -50% to maintain model plausibility. Any shocks specified should be understood as relative to nonfood prices (see User Guide).,,,,,
+,,,,,
+,,,,,
+Price Shocks,,,,,
+Name,Rural,Urban,,,
+Rice,0,0,"Food price shocks are entered here. 
+
+To enter the shocks, simply type the desired percentage change, either positive or negative, in the specified cell. 
+
+In the example below, we have typed ""5"" and ""-5"" to increase rural rice prices by 5% and decrease urban maize prices by ""5%""",0.01,é
+Maize,0,0,,0.0,
+Wheat,0,0,,-0.01,ê
+Sorghum,0,0,,,
+Millet,0,0,,,
+Cassava,0,0,,,
+Yam,0,0,,,
+"Other starchy staples (e.g. potatoes, plantains)",0,0,,,
+"Nuts (e.g. peanuts, tree nuts)",0,0,,,
+"Pulses (e.g. beans, peas)",0,0,,,
+Raw milk,0,0,,,
+Dairy products,0,0,,,
+Beef,0,0,,,
+Goat/lamb/pork & other ruminants,0,0,,,
+Poultry (e.g. chicken),0,0,,,
+Smoked & dried fish,0,0,,,
+Fresh & frozen fish,0,0,,,
+Eggs,0,0,,,
+All vegetables,0,0,,,
+All fruits,0,0,,,
+Added fats & oils,0,0,,,
+Sugar & sweeteners,0,0,,,
+"Beverages (e.g. soda, alcoholic, juices)",0,0,,,
+Coffee & tea,0,0,,,
+Condiments & spices,0,0,,,
+Savory & sweet snacks,0,0,,,
