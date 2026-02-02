@@ -1,3 +1,8 @@
 *.csv
 *.nc
 *.parquet
+
+# --- AJOUTS SPECIFIQUES ---
+notebooks/global_0.1_degree_representation/
+notebooks/global_0.1_degree_tiff_all/
+src/**/__pycache__/
