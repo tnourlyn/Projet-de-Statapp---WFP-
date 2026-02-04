@@ -1,0 +1,7 @@
+# Données locales / outputs
+data/
+csv_from_xlsx/
+csv_output/index_files_2folders*.csv
+csv_output/index_files_nigeria_only*.csv
+csv_output/flood_indicator*.csv
+csv_output/flood_indicator_clean*.csv
