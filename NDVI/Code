@@ -1,0 +1,114 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("Projet-de-Statapp---WFP-/NIGERIA_WFP_ADMIN1.csv", sep=None, engine="python")
+df["time"] = pd.to_datetime(df["time"], errors="coerce", dayfirst=True)
+df = df.dropna(subset=["time", "NAME_1"])
+
+df["year"] = df["time"].dt.year
+
+# NDVI: prends celui que tu as (vim)
+df["ndvi"] = df["vim"]
+
+# On filtre la qualité NDVI
+df = df[df["viq"] >= 80].copy()   
+
+df = df.sort_values(["NAME_1", "time"])
+print(df.head(5))
+
+def phenology_one_year(g, consec=1, q_base=0.10, frac_amp=0.15):
+    g = g.sort_values("time").dropna(subset=["ndvi"])
+    y = g["ndvi"].to_numpy()
+    t = g["time"].to_numpy()
+
+    if len(g) < 6:
+        return None
+
+    base = np.nanquantile(y, q_base)
+    peak_idx = int(np.nanargmax(y))
+    peak_ndvi = float(y[peak_idx])
+    peak_date = pd.Timestamp(t[peak_idx])
+
+    amp = peak_ndvi - base
+    if (not np.isfinite(amp)) or amp <= 0:
+        return None
+
+    T = base + frac_amp * amp
+    above = y >= T
+    below = y < T
+
+    def first_consecutive(mask, start=0):
+        run = 0
+        for i in range(start, len(mask)):
+            if mask[i]:
+                run += 1
+                if run >= consec:
+                    return i - consec + 1
+            else:
+                run = 0
+        return None
+
+    sos_idx = first_consecutive(above, start=0)
+    if sos_idx is None:
+        return None
+
+    eos_idx = first_consecutive(below, start=peak_idx)
+    if eos_idx is None:
+        eos_idx = len(g) - 1  # fallback
+
+    sos = pd.Timestamp(t[sos_idx])
+    eos = pd.Timestamp(t[eos_idx])
+
+    if eos <= sos:
+        return None
+
+    return {
+        "SOS_date": sos,
+        "EOS_date": eos,
+        "LOS_days": int((eos - sos).days),
+        "peak_date": peak_date,
+        "peak_doy": int(peak_date.dayofyear),
+        "peak_ndvi": peak_ndvi,
+        "SOS_doy": int(sos.dayofyear),
+        "EOS_doy": int(eos.dayofyear),
+        "ndvi_mean": float(np.nanmean(y)),
+        "ndvi_std": float(np.nanstd(y)),
+        "n_obs": int(len(g)),
+        "threshold_T": float(T),
+    }
+
+rows = []
+for (region, year), g in df.groupby(["NAME_1", "year"]):
+    res = phenology_one_year(g)
+    if res is None:
+        continue
+    res["NAME_1"] = region
+    res["year"] = year
+    rows.append(res)
+
+pheno = pd.DataFrame(rows)
+print("pheno rows:", len(pheno))
+print(pheno.head())
+
+
+print(pheno[["SOS_doy","LOS_days","peak_doy","peak_ndvi"]].describe())
+print(pheno.groupby("year")[["SOS_doy","LOS_days","peak_doy","peak_ndvi"]].describe())
+print(pheno.groupby("NAME_1")[["SOS_doy","LOS_days","peak_doy","peak_ndvi"]].mean().sort_values("LOS_days"))
+
+
+food_year = df.groupby(["NAME_1", "year"], as_index=False)["inadequate"].mean()
+analysis = pheno.merge(food_year, on=["NAME_1","year"], how="inner")
+
+print("analysis rows:", len(analysis))
+print(analysis[["NAME_1","year","inadequate","LOS_days","peak_ndvi","SOS_doy","peak_doy"]].head())
+
+
+cols = ["inadequate","SOS_doy","LOS_days","peak_doy","peak_ndvi","ndvi_mean","ndvi_std"]
+corr = analysis[cols].corr(method="spearman")
+print(corr)
+
+
+for y in sorted(analysis["year"].unique()):
+    sub = analysis[analysis["year"]==y]
+    print("\nYear:", y, "n=", len(sub))
+    print(sub[cols].corr(method="spearman")["inadequate"].sort_values())
